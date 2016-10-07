@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style type="text/css">
+        #mapCon
+        {
+            height: 890px;
+            width: 1240px;
+            float: left;
+            left: 9px;
+            position: relative;
+            top: 0px;
+            background-color: #e0e5eb;
+        }
+    </style>
+    <script src="libs/jquery-1.11.2.min.js" type="text/javascript"></script>
+    <script src="libs/OpenLayers.js" type="text/javascript"></script>
+    <script src="libs/zdclient.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var map;
+        function name() {
+
+
+            //初始化地图容器
+            map = new OpenLayers.Map({
+                div: "mapCon",
+                layers: [
+                            new Zondy.Map.GoogleLayer("Google矢量数据", {
+                                //谷歌地图类型
+                                layerType: Zondy.Enum.GoogleLayerType.VEC,
+                                //将该图层作为基础底图
+                                isBaseLayer: true
+                            }),
+                            new Zondy.Map.GoogleLayer("Google影像数据", {
+                                //谷歌地图类型
+                                layerType: Zondy.Enum.GoogleLayerType.RASTER,
+                                //将该图层作为基础底图
+                                isBaseLayer: true
+                            }),
+                            new Zondy.Map.GoogleLayer("Google道路数据", {
+                                //谷歌地图类型
+                                layerType: Zondy.Enum.GoogleLayerType.ROAD,
+                                //将该图层作为叠加图层
+                                isBaseLayer: false
+                            }),
+                            new Zondy.Map.GoogleLayer("Google地形数据", {
+                                //谷歌地图类型
+                                layerType: Zondy.Enum.GoogleLayerType.TERRAIN,
+                                //将该图层作为基础底图
+                                isBaseLayer: true
+                            })
+                        ],
+                controls: [
+                //缩放导航控件
+                            new OpenLayers.Control.Zoom(),
+                //图层切换控件
+                            new OpenLayers.Control.LayerSwitcher(),
+                //地图浏览导航控件
+                            new OpenLayers.Control.Navigation(),
+                //鼠标位置控件
+                            new OpenLayers.Control.MousePosition()
+                        ]
+            });
+            //设置地图的初始化显示中心和级别
+            map.setCenter(new OpenLayers.LonLat(12457721.04897, 4142455.77830), 3);
+        }
+    </script>
+</head>
+<body onload="name()">
+    <div id="mapCon">
+    </div>
+</body>
+
+</html>
